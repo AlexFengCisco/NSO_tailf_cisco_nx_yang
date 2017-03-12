@@ -14,5 +14,6 @@ Device OS version : NX OS 7.0(3)I4(5)
                 route target both auto evpn @same location
     [alex 0007] feature vn-segment-vlan-based
     [alex 0008] feature nv overlay
+    [alex 0009] interface nve configuration (on construction...)
 
 TO BE CONTINUE .....
