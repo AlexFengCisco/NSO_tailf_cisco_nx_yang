@@ -1,4 +1,102 @@
-safasdfsafdasfd
+module l2vpn {
+  namespace "http://com/example/l2vpn";
+  prefix l2vpn;
 
-ad
-fsdf
+  import ietf-inet-types {
+    prefix inet;
+  }
+  import tailf-ncs {
+    prefix ncs;
+  }
+  import tailf-common {
+    prefix tailf;
+  }
+  augment /ncs:services {
+    list l2vpn {
+      key name;
+      unique pw-id;
+ 
+      uses ncs:service-data;
+      ncs:servicepoint "l2vpn";
+
+      leaf name {
+        type string;
+      }
+      
+      leaf customer {
+         tailf:info "Customer name";
+         type leafref {
+            path "/ncs:customers/ncs:customer/ncs:id";
+          }
+      }
+      
+      leaf pw-id {
+        mandatory true;
+        type uint32;
+      }
+
+
+      // may replace this with other ways of refering to the devices.
+     // leaf-list device {
+     //   type leafref {
+     //     path "/ncs:devices/ncs:device/ncs:name";
+     //   }
+     // }
+
+      leaf device1 {
+        tailf:info   "PE Router 1";
+        mandatory true; 
+        type leafref {
+          path "/ncs:devices/ncs:device/ncs:name";
+        }
+     }
+     
+
+      leaf intf-number1 {
+        tailf:info "GigabitEthernet Interface ID";
+        mandatory true;
+        type string {
+          pattern "[0-9]{1,2}(/[0-9]{1,2}){1,3}";
+        }
+      }
+
+      leaf  remote-ip1 {
+        tailf:info "Loopback 0 ip address of remote PEi (10.0.0.x)";
+        mandatory true;
+        type inet:ipv4-address {
+          pattern "10\.0\.0\.[0-9]+";
+          }
+       }
+     
+       leaf device2 {
+          tailf:info "PE Router 2";
+          mandatory true;
+          type leafref {
+             path "/ncs:devices/ncs:device/ncs:name";
+          }
+        }
+
+       leaf intf-number2 {
+           tailf:info "Gigibitethnet interface ID";
+           mandatory true;
+           type string {
+              pattern "[0-9]{1,2}(/[0-9]{1,2}){1,4}";
+           }
+       }
+
+       leaf remote-ip2 {
+            tailf:info "Loopback 0 ip adress od remote PE (10.0.0.x)";
+            mandatory true;
+            type inet:ipv4-address {
+              pattern "10\.0\.0\.[0-9]+";
+            }
+       }
+
+    
+      // replace with your own stuff here
+      //leaf dummy {
+      //  type inet:ipv4-address;
+      //}
+    }
+  }
+}
