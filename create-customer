@@ -1,1 +1,10 @@
-asfsfs
+#!/bin/sh
+{ ncs_cli -u admin -C<< EOF;
+config
+customers customer $1 rank 128 status active
+commit
+exit no-confirm
+exit
+EOF
+}
+if [ $? != 0 ]; then echo 'create-customer: script failed'; exit 1; fi
