@@ -1,1 +1,110 @@
-ertw
+<config-template xmlns="http://tail-f.com/ns/config/1.0"
+                 servicepoint="l2vpn">
+  <devices xmlns="http://tail-f.com/ns/ncs">
+    <device tags="nocreate">
+      <!--
+          Select the devices from some data structure in the service
+          model. In this skeleton the devices are specified in a leaf-list.
+          Select all devices in that leaf-list:
+      -->
+      <name>{/device1}</name>
+      <config tags="merge">
+           <interface xmlns="urn:ios">
+                   <GigabitEthernet>
+                     <name>{/intf-number1}</name>
+                     <xconnect>
+                       <address>{/remote-ip1}</address>
+                       <vcid>{/pw-id}</vcid>
+                       <encapsulation>mpls</encapsulation>
+                     </xconnect>
+                   </GigabitEthernet>
+                 </interface>
+
+             <interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
+                   <GigabitEthernet>
+                     <id>{/intf-number1}</id>
+                     <l2transport/>
+                   </GigabitEthernet>
+                 </interface>
+                 <l2vpn xmlns="http://tail-f.com/ned/cisco-ios-xr">
+                   <xconnect>
+                     <group>
+                       <name>GROUP</name>
+                       <p2p>
+                         <name>{/name}</name>
+                         <interface>
+                           <name>{/intf-number1}</name>
+                         </interface>
+                         <neighbor>
+                           <address>{/remote-ip1}</address>
+                           <pw-id>{/pw-id}</pw-id>
+                         </neighbor>
+                       </p2p>
+                     </group>
+                   </xconnect>
+                 </l2vpn>
+
+        
+<!--
+            Add device-specific parameters here.
+            In this skeleton the service has a leaf "dummy"; use that
+            to set something on the device e.g.:
+            <ip-address-on-device>{/dummy}</ip-address-on-device>
+        -->
+      </config>
+    </device>
+	<device tags="nocreste">
+      <!--
+          Select the devices from some data structure in the service
+          model. In this skeleton the devices are specified in a leaf-list.
+          Select all devices in that leaf-list:
+      -->
+      <name>{/device2}</name>
+      <config tags="merge">
+           <interface xmlns="urn:ios">
+                   <GigabitEthernet>
+                     <name>{/intf-number2}</name>
+                     <xconnect>
+                       <address>{/remote-ip2}</address>
+                       <vcid>{/pw-id}</vcid>
+                       <encapsulation>mpls</encapsulation>
+                     </xconnect>
+                   </GigabitEthernet>
+                 </interface>
+
+             <interface xmlns="http://tail-f.com/ned/cisco-ios-xr">
+                   <GigabitEthernet>
+                     <id>{/intf-number2}</id>
+                     <l2transport/>
+                   </GigabitEthernet>
+                 </interface>
+                 <l2vpn xmlns="http://tail-f.com/ned/cisco-ios-xr">
+                   <xconnect>
+                     <group>
+                       <name>GROUP</name>
+                       <p2p>
+                         <name>{/name}</name>
+                         <interface>
+                           <name>{/intf-number2}</name>
+                         </interface>
+                         <neighbor>
+                           <address>{/remote-ip2}</address>
+                           <pw-id>{/pw-id}</pw-id>
+                         </neighbor>
+                       </p2p>
+                     </group>
+                   </xconnect>
+                 </l2vpn>
+
+        
+<!--
+            Add device-specific parameters here.
+            In this skeleton the service has a leaf "dummy"; use that
+            to set something on the device e.g.:
+            <ip-address-on-device>{/dummy}</ip-address-on-device>
+        -->
+      </config>
+    </device>
+  </devices>
+</config-template>
+
