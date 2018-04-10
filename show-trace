@@ -1,0 +1,47 @@
+#!/bin/sh
+               set -e
+               newline=cat
+               while [ $# -gt 0 ]; do
+                   case "$1" in
+                       --command)
+                           cat << EOF
+               begin command
+                 modes: oper
+                 styles: c i j
+                 cmdpath: show trace
+                 help: Show the contents of trace log files
+                 more: true
+end
+begin param
+name: file
+presence: optional
+  flag: file
+  help: Display contents of trace log file
+end
+begin param
+  name: list
+  presence: optional
+  type: void
+  flag: list
+  help: List trace log files
+           end EOF
+   exit
+;; list)
+        cd /home/cisco/ncs-run/logs/
+        ls -1 *.trace
+        exit
+        ;;
+    file)
+        cd /home/cisco/ncs-run/logs/
+        more $2
+        exit
+        ;;
+*)
+break
+;; esac
+                               Step 2
+Step 3
+shift done
+echo Specify a trace log file to display.
+echo Usege:
+echo show trace list ... lists trace log files echo show trace file \<file\> ... displays the selected log file
